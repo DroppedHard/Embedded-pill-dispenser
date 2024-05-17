@@ -1,0 +1,28 @@
+					
+	Pin #	Purpose	New purpose	Notes	Notes 2
+	GP0	Tx0		"serial comms, do not use"	
+	GP1	Rx0		"serial comms, do not use"	
+	GP2	In1		Stepper Motor input 1	
+	GP3	In2		Stepper Motor input 2	
+	GP4		I2C - SDA (default pin)		Real Time Clock or / and I2C device
+	GP5	SDIO CLK pin	I2C - SCL (default pin)	SD card reader	Real Time Clock or / and I2C device
+	GP6				
+	GP7	SM_Enable		Stepper motor power on/off	Power off steeper motors
+	GP8	LCD Command/Data pin		LCD	
+	GP9	LCD chip select		LCD	They say it is not connected (?)
+	GP10	SPI CLK pin		LCD	
+	GP11	SPI MOSI pin		LCD	
+	GP12	SPI MISO pin		LCD	
+	GP13	LCD backlight		LCD	
+	GP14	SM1_Home		Stepper Motor sensor (1)	must use; detecting home position
+	GP15	LCD reset		LCD	
+	GP16	Touch controller chip select		LCD / Touch 	
+	GP17	Touch controller interrupt		LCD / Touch 	
+	GP18	SDIO CMD pin	Stepper Motor 2 input 1	SD card reader	
+	GP19	SDIO DO pin	Stepper Motor 2 input 2	SD card reader	
+	GP20	SDIO DI pin	Stepper Motor 2 input 3	SD card reader	
+	GP21	SDIO D2 pin	Stepper Motor 2 input 4	SD card reader	
+	GP22	SDIO CS/D3 pin	General button - call for help?	SD card reader	
+	GP26	In3	Stepper Motor input 3	Stepper Motor input 3	
+	GP27	In4	Stepper Motor input 4	Stepper Motor input 4	
+	GP28	SM2_Home		Stepper Motor sensor (2)	must use; detecting home position
