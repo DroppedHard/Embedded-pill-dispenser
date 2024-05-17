@@ -85,6 +85,10 @@ AccelStepper Stepper_1(AccelStepper::FULL4WIRE, In1, In3, In2, In4); //motor for
 AccelStepper Stepper_2(AccelStepper::FULL4WIRE, In2_1, In2_3, In2_2, In2_4); //motor for bottom cover
 
 void setup() {
+  // pin setup
+  pinMode(SM_Enable, OUTPUT);
+  digitalWrite(SM_Enable, HIGH);
+
   // Use serial port
   Serial.begin(115200);
   Stepper_1.setMaxSpeed(1000);
@@ -100,11 +104,14 @@ void setup() {
   // Calibrate the touch screen and retrieve the scaling factors
   // touch_calibrate();
 
+  // invert colors
+  tft.invertDisplay( true );
+  
   // Clear the screen
   tft.fillScreen(TFT_BLACK);
 
   // Draw keypad background
-  tft.fillRect(0, 0, 240, 320, TFT_DARKGREY);
+  tft.fillRect(0, 0, 480, 320, TFT_DARKGREY);
 
   // Draw number display area and frame
   tft.fillRect(DISP_X, DISP_Y, DISP_W, DISP_H, TFT_BLACK);
@@ -119,102 +126,102 @@ void setup() {
 void loop(void) {
   Stepper_1.runSpeed(); // running motor 1
   Stepper_2.runSpeed(); // running motor 2
-}
-//   tmElements_t tm; // reading RTC
-//   if (RTC.read(tm)) {
-//     Serial.print("Ok, Time = ");
-//     Serial.print(", Date (D/M/Y) = ");
-//     Serial.print(tm.Day);
-//     Serial.write('/');
-//     Serial.print(tm.Month);
-//     Serial.write('/');
-//     Serial.print(tmYearToCalendar(tm.Year));
-//     Serial.println();
-//   } else {
-//     if (RTC.chipPresent()) {
-//       Serial.println("The DS1307 is stopped.  Please run the SetTime");
-//       Serial.println("example to initialize the time and begin running.");
-//       Serial.println();
-//     } else {
-//       Serial.println("DS1307 read error!  Please check the circuitry.");
-//       Serial.println();
-//     }
-//     //delay(9000);
-//   }
-    
-//   uint16_t t_x = 0, t_y = 0; // To store the touch coordinates
-
-//   // Pressed will be set true is there is a valid touch on the screen
-//   bool pressed = tft.getTouch(&t_x, &t_y);
-
-//   // / Check if any key coordinate boxes contain the touch coordinates
-//   for (uint8_t b = 0; b < 15; b++) {
-//     if (pressed && key[b].contains(t_x, t_y)) {
-//       key[b].press(true);  // tell the button it is pressed
-//     } else {
-//       key[b].press(false);  // tell the button it is NOT pressed
-//     }
-//   }
-
-//   // Check if any key has changed state
-//   for (uint8_t b = 0; b < 15; b++) {
-
-//     if (b < 3) tft.setFreeFont(LABEL1_FONT);
-//     else tft.setFreeFont(LABEL2_FONT);
-
-//     if (key[b].justReleased()) key[b].drawButton();     // draw normal
-
-//     if (key[b].justPressed()) {
-//       key[b].drawButton(true);  // draw invert
-
-//       // if a numberpad button, append the relevant # to the numberBuffer
-//       if (b >= 3) {
-//         if (numberIndex < NUM_LEN) {
-//           numberBuffer[numberIndex] = keyLabel[b][0];
-//           numberIndex++;
-//           numberBuffer[numberIndex] = 0; // zero terminate
-//         }
-//         status(""); // Clear the old status
-//       }
-
-//       // Del button, so delete last char
-//       if (b == 1) {
-//         numberBuffer[numberIndex] = 0;
-//         if (numberIndex > 0) {
-//           numberIndex--;
-//           numberBuffer[numberIndex] = 0;//' ';
-//         }
-//         status(""); // Clear the old status
-//       }
-
-//       if (b == 2) {
-//         status("Sent value to serial port");
-//         Serial.println(numberBuffer);
-//       }
-//       // we dont really check that the text field makes sense
-//       // just try to call
-//       if (b == 0) {
-//         status("Value cleared");
-//         numberIndex = 0; // Reset index to 0
-//         numberBuffer[numberIndex] = 0; // Place null in buffer
-//       }
-
-//       // Update the number display field
-//       tft.setTextDatum(TL_DATUM);        // Use top left corner as text coord datum
-//       tft.setFreeFont(&FreeSans18pt7b);  // Choose a nice font that fits box
-//       tft.setTextColor(DISP_TCOLOR);     // Set the font colour
-
-//       // Draw the string, the value returned is the width in pixels
-//       int xwidth = tft.drawString(numberBuffer, DISP_X + 4, DISP_Y + 12);
-
-//       // Now cover up the rest of the line up by drawing a black rectangle.  No flicker this way
-//       // but it will not work with italic or oblique fonts due to character overlap.
-//       tft.fillRect(DISP_X + 4 + xwidth, DISP_Y + 1, DISP_W - xwidth - 5, DISP_H - 2, TFT_BLACK);
-
-//       delay(10); // UI debouncing
-//     }
-//   }
 // }
+  // tmElements_t tm; // reading RTC
+  // if (RTC.read(tm)) {
+  //   Serial.print("Ok, Time = ");
+  //   Serial.print(", Date (D/M/Y) = ");
+  //   Serial.print(tm.Day);
+  //   Serial.write('/');
+  //   Serial.print(tm.Month);
+  //   Serial.write('/');
+  //   Serial.print(tmYearToCalendar(tm.Year));
+  //   Serial.println();
+  // } else {
+  //   if (RTC.chipPresent()) {
+  //     Serial.println("The DS1307 is stopped.  Please run the SetTime");
+  //     Serial.println("example to initialize the time and begin running.");
+  //     Serial.println();
+  //   } else {
+  //     Serial.println("DS1307 read error!  Please check the circuitry.");
+  //     Serial.println();
+  //   }
+  //   //delay(9000);
+  // }
+    
+  uint16_t t_x = 0, t_y = 0; // To store the touch coordinates
+
+  // Pressed will be set true is there is a valid touch on the screen
+  bool pressed = tft.getTouch(&t_x, &t_y);
+
+  // / Check if any key coordinate boxes contain the touch coordinates
+  for (uint8_t b = 0; b < 15; b++) {
+    if (pressed && key[b].contains(t_x, t_y)) {
+      key[b].press(true);  // tell the button it is pressed
+    } else {
+      key[b].press(false);  // tell the button it is NOT pressed
+    }
+  }
+
+  // Check if any key has changed state
+  for (uint8_t b = 0; b < 15; b++) {
+
+    if (b < 3) tft.setFreeFont(LABEL1_FONT);
+    else tft.setFreeFont(LABEL2_FONT);
+
+    if (key[b].justReleased()) key[b].drawButton();     // draw normal
+
+    if (key[b].justPressed()) {
+      key[b].drawButton(true);  // draw invert
+
+      // if a numberpad button, append the relevant # to the numberBuffer
+      if (b >= 3) {
+        if (numberIndex < NUM_LEN) {
+          numberBuffer[numberIndex] = keyLabel[b][0];
+          numberIndex++;
+          numberBuffer[numberIndex] = 0; // zero terminate
+        }
+        status(""); // Clear the old status
+      }
+
+      // Del button, so delete last char
+      if (b == 1) {
+        numberBuffer[numberIndex] = 0;
+        if (numberIndex > 0) {
+          numberIndex--;
+          numberBuffer[numberIndex] = 0;//' ';
+        }
+        status(""); // Clear the old status
+      }
+
+      if (b == 2) {
+        status("Sent value to serial port");
+        Serial.println(numberBuffer);
+      }
+      // we dont really check that the text field makes sense
+      // just try to call
+      if (b == 0) {
+        status("Value cleared");
+        numberIndex = 0; // Reset index to 0
+        numberBuffer[numberIndex] = 0; // Place null in buffer
+      }
+
+      // Update the number display field
+      tft.setTextDatum(TL_DATUM);        // Use top left corner as text coord datum
+      tft.setFreeFont(&FreeSans18pt7b);  // Choose a nice font that fits box
+      tft.setTextColor(DISP_TCOLOR);     // Set the font colour
+
+      // Draw the string, the value returned is the width in pixels
+      int xwidth = tft.drawString(numberBuffer, DISP_X + 4, DISP_Y + 12);
+
+      // Now cover up the rest of the line up by drawing a black rectangle.  No flicker this way
+      // but it will not work with italic or oblique fonts due to character overlap.
+      tft.fillRect(DISP_X + 4 + xwidth, DISP_Y + 1, DISP_W - xwidth - 5, DISP_H - 2, TFT_BLACK);
+
+      delay(10); // UI debouncing
+    }
+  }
+}
 
 //------------------------------------------------------------------------------------------
 
