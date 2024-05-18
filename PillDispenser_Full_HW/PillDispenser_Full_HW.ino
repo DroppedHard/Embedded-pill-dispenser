@@ -13,7 +13,7 @@
 #include "FS.h"             // ?
 #include <SPI.h>            // standard arduino SPI library
 #include "Config.h"
-// #include "LCDDisplay.h"
+#include "LCDDisplay.h"
 
 
 

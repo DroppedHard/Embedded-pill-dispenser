@@ -9,8 +9,6 @@
 #include <TFT_eSPI.h>       // WaveShare TFT touch screen handled by https://github.com/Bodmer/TFT_eSPI (+ two files updated manually!)
 
 namespace LCDDisplay {
-    struct
-
     void initialize();
     void guiLoop();
     void drawKeypad();

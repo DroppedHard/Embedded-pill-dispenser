@@ -37,6 +37,8 @@ const int GP_Button = 22;
 #define BLOCKER_BT_MORNING_COLOR TFT_GREENYELLOW
 #define BLOCKER_BT_NOON_COLOR TFT_SKYBLUE
 #define BLOCKER_BT_EVENING_COLOR TFT_GOLD
+#define BT_OUTLINE TFT_BLACK
+#define BT_LABEL_COLOR TFT_BLACK
 
 
 // dimensions
@@ -50,16 +52,16 @@ const int GP_Button = 22;
 #define ROWS_GAP 30
 
 // font styling and size
-#define KEYPAD_FONT &FreeSansBold12pt7b    // Key label font 2
-#define CYLINDER_BT_FONT_SIZE 96
-#define BLOCKER_BT_FONT_SIZE 20
+#define KEYPAD_FONT &FreeSansBold12pt7b
+#define CYLINDER_BT_FONT_SIZE 2
+#define BLOCKER_BT_FONT_SIZE 1
 
 // buttons content
 
 #define CYLINDER_BT_LEFT_TEXT "<"
 #define CYLINDER_BT_RIGHT_TEXT ">"
 #define BLOCKER_BT_MORNING_TEXT "rano"
-#define BLOCKER_BT_NOON_TEXT "południe"
-#define BLOCKER_BT_EVENING_TEXT "wieczór"
+#define BLOCKER_BT_NOON_TEXT "poludnie"
+#define BLOCKER_BT_EVENING_TEXT "wieczor"
 
 #endif //EMBEDDED_PILL_DISPENSER_CONFIG_H
