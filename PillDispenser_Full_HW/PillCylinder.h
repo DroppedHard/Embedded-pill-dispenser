@@ -9,7 +9,7 @@
 
 namespace PillCylinder {
     void initialize();
-    void cylinderLoop();
+    void cylinderLoop(Interfaces::MoveCommunication *communicator);
 };
 
 

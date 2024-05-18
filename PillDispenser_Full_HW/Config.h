@@ -16,8 +16,8 @@ const int In2_1 = 18;
 const int In2_2 = 19;
 const int In2_3 = 20;
 const int In2_4 = 21;
-const int SM1_Home = 14;
-const int SM2_Home = 28;
+const int PIN_BLOCKER_Home = 28;
+const int PIN_CYLINDER_Home = 14;
 const int SM_Enable = 7;
 const int GP_Button = 22;
 
@@ -34,6 +34,8 @@ const int GP_Button = 22;
 // colors
 #define BG_COLOR TFT_DARKGREY
 #define CYLINDER_BT_COLOR TFT_PINK
+#define BLOCKER_BT_BLOCK_COLOR TFT_RED
+#define BLOCKER_BT_MOVE_COLOR TFT_VIOLET
 #define BLOCKER_BT_MORNING_COLOR TFT_GREENYELLOW
 #define BLOCKER_BT_NOON_COLOR TFT_SKYBLUE
 #define BLOCKER_BT_EVENING_COLOR TFT_GOLD
@@ -45,8 +47,8 @@ const int GP_Button = 22;
 #define SCREEN_HEIGHT 320
 #define SCREEN_WIDTH 480
 #define KEYPAD_PADDING 30
-#define CYLINDER_BT_SIZE 130
-#define BLOCKER_BT_HEIGHT 100
+#define CYLINDER_BT_SIZE 100
+#define BLOCKER_BT_HEIGHT 50
 #define BLOCKER_BT_WIDTH 120
 #define BLOCKER_BT_GAP 30
 #define ROWS_GAP 30
@@ -60,8 +62,25 @@ const int GP_Button = 22;
 
 #define CYLINDER_BT_LEFT_TEXT "<"
 #define CYLINDER_BT_RIGHT_TEXT ">"
+#define BLOCKER_BT_BLOCK_TEXT "blokuj"
 #define BLOCKER_BT_MORNING_TEXT "rano"
 #define BLOCKER_BT_NOON_TEXT "poludnie"
 #define BLOCKER_BT_EVENING_TEXT "wieczor"
+
+// CYLINDER DEFINITIONS
+
+#define MOTOR_CYLINDER_STEP 512L
+#define MOTOR_CYLINDER_MOVE 10L
+
+
+namespace Interfaces {
+
+    struct MoveCommunication {
+        bool inProgress;
+        bool cylinderMove; // false - not for this device
+        bool blockerMove;
+        long steps;
+    };
+}
 
 #endif //EMBEDDED_PILL_DISPENSER_CONFIG_H

@@ -8,35 +8,36 @@
 // ...?
 #include <TimeLib.h>        //standard Time library for setting date & time
 #include <DS1307RTC.h>      // RTC module library by Michael Margolis
-#include <elapsedMillis.h>  //https://github.com/pfeerick/elapsedMillis/wiki - handling events
 #include "FS.h"             // ?
 #include <SPI.h>            // standard arduino SPI library
 #include "Config.h"
 #include "LCDDisplay.h"
 #include "PillCylinder.h"
 
+Interfaces::MoveCommunication communicator;
 
 
 void setup() {
     // Use serial port
     Serial.begin(115200);
-
+    pinMode(LED_BUILTIN, OUTPUT);
     LCDDisplay::initialize();
     LCDDisplay::drawKeypad();
-    pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void setup1() {
     // pin setup
     pinMode(SM_Enable, OUTPUT);
     digitalWrite(SM_Enable, HIGH);
+    pinMode(PIN_CYLINDER_Home, INPUT);
+    pinMode(PIN_BLOCKER_Home, INPUT);
     PillCylinder::initialize();
 }
 
-void loop(void) {
-    LCDDisplay::guiLoop();
+void loop() {
+    LCDDisplay::guiLoop(&communicator);
 }
 
 void loop1() {
-    PillCylinder::cylinderLoop();
+    PillCylinder::cylinderLoop(&communicator);
 }

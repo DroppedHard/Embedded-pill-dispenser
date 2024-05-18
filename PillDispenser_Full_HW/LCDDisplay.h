@@ -10,8 +10,9 @@
 
 namespace LCDDisplay {
     void initialize();
-    void guiLoop();
     void drawKeypad();
+    void guiLoop(Interfaces::MoveCommunication *communicator);
+    void orderMovement(Interfaces::MoveCommunication *communicator, bool isCylinder, long steps);
 };
 
 
