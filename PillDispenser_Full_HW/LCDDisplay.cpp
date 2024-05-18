@@ -1,15 +1,9 @@
-//
-// Created by szype on 17.05.2024.
-//
 #include "LCDDisplay.h"
 
 namespace LCDDisplay {
 
-TFT_eSPI tft = TFT_eSPI(); // Invoke custom library;
-// Other declaration in config file
+TFT_eSPI tft = TFT_eSPI();
 
-// Invoke the TFT_eSPI button class and create all the button objects
-// Create keys for the keypad
 #define BT_NUM 10
 
 char bt_label_tab[BT_NUM][9] = {CYLINDER_BT_LEFT_TEXT, CYLINDER_BT_RIGHT_TEXT,
@@ -26,40 +20,31 @@ TFT_eSPI_Button bt_struct_tab[BT_NUM];
 
 
 void initialize() {
-    // Initialise the TFT screen
     tft.init();
-
-    // Rotate the screen for horizontal view
     tft.setRotation(SCREEN_ROTATION);
-
-    // invert colors for proper color representation on screen
     tft.invertDisplay( true );
-
-    // Clear the screen
     tft.fillScreen(BG_COLOR);
 }
 
 void guiLoop(Interfaces::MoveCommunication *communicator) {
-    uint16_t touch_x = 0, touch_y = 0; // To store the touch coordinates
+    uint16_t touch_x = 0, touch_y = 0;
 
-    // Pressed will be set true is there is a valid touch on the screen
     bool pressed = tft.getTouch(&touch_x, &touch_y);
 
-    // / Check if any key coordinate boxes contain the touch coordinates
     for (uint8_t bt_id = 0; bt_id < BT_NUM; bt_id++) {
         if (pressed && bt_struct_tab[bt_id].contains(touch_x, touch_y)) {
-            bt_struct_tab[bt_id].press(true);  // tell the button it is pressed
+            bt_struct_tab[bt_id].press(true);
         } else {
-            bt_struct_tab[bt_id].press(false);  // tell the button it is NOT pressed
+            bt_struct_tab[bt_id].press(false);
         }
     }
 
     // Check if any key has changed state
     for (uint8_t bt_id = 0; bt_id < BT_NUM; bt_id++) {
-        if (bt_struct_tab[bt_id].justReleased()) bt_struct_tab[bt_id].drawButton();     // draw normal
+        if (bt_struct_tab[bt_id].justReleased()) bt_struct_tab[bt_id].drawButton();
 
         if (bt_struct_tab[bt_id].justPressed()) {
-            bt_struct_tab[bt_id].drawButton(true);  // draw invert
+            bt_struct_tab[bt_id].drawButton(true);
             communicator->inProgress = true;
             switch (bt_id) {
                 case 0: // cylinder left section
@@ -101,7 +86,6 @@ void guiLoop(Interfaces::MoveCommunication *communicator) {
 
 void drawKeypad()
 {
-    // Draw the keys
     for (uint8_t bt_id = 0; bt_id<BT_NUM; bt_id++){
         int pos_x, pos_y, width, height;
         uint8_t font_size;

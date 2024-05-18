@@ -1,7 +1,3 @@
-//
-// Created by szype on 17.05.2024.
-//
-
 #ifndef EMBEDDED_PILL_DISPENSER_GUITEST_H
 #define EMBEDDED_PILL_DISPENSER_GUITEST_H
 

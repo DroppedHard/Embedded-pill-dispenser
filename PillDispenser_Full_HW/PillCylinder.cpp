@@ -1,22 +1,13 @@
-//
-// Created by szype on 18.05.2024.
-//
-
 #include "PillCylinder.h"
-
 #include <elapsedMillis.h>  //https://github.com/pfeerick/elapsedMillis/wiki - handling events
-
 
 
 namespace PillCylinder {
 
     elapsedMillis timeElapsed;
 
-    AccelStepper blockerStepper(AccelStepper::FULL4WIRE, In1, In3, In2, In4); //motor for rotation
-    AccelStepper cylinderStepper(AccelStepper::FULL4WIRE, In2_1, In2_3, In2_2, In2_4); //motor for bottom cover
-
-//    uint8_t currSectionId = 0;
-//    uint8_t maxSectionId = 13;
+    AccelStepper blockerStepper(AccelStepper::FULL4WIRE, In1, In3, In2, In4);
+    AccelStepper cylinderStepper(AccelStepper::FULL4WIRE, In2_1, In2_3, In2_2, In2_4);
 
     void initialize() {
         blockerStepper.setMaxSpeed(1000);
