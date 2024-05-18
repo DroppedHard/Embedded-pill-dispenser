@@ -7,6 +7,7 @@
 
 #include <cstdint>
 
+// pins
 const int In1 =   2;
 const int In2 =   3;
 const int In3 =   26;
@@ -22,51 +23,43 @@ const int GP_Button = 22;
 
 
 
-// This is the file name used to store the calibration data
-// You can change this to create new calibration files.
-// The SPIFFS file name must start with "/".
+// File for calibration data
 #define CALIBRATION_FILE "/TouchCalData2"
 
-// Set REPEAT_CAL to true instead of false to run calibration
-// again, otherwise it will only be done once.
-// Repeat calibration if you change the screen rotation.
-#define REPEAT_CAL false
+
+// KEYPAD DEFINITIONS
+
+#define SCREEN_ROTATION 1 // 0 - vertical, 1 - horizontal
+
+// colors
+#define BG_COLOR TFT_DARKGREY
+#define CYLINDER_BT_COLOR TFT_PINK
+#define BLOCKER_BT_MORNING_COLOR TFT_GREENYELLOW
+#define BLOCKER_BT_NOON_COLOR TFT_SKYBLUE
+#define BLOCKER_BT_EVENING_COLOR TFT_GOLD
 
 
-// DEMO KEYPAD DEFINITIONS
+// dimensions
+#define SCREEN_HEIGHT 320
+#define SCREEN_WIDTH 480
+#define KEYPAD_PADDING 30
+#define CYLINDER_BT_SIZE 130
+#define BLOCKER_BT_HEIGHT 100
+#define BLOCKER_BT_WIDTH 120
+#define BLOCKER_BT_GAP 30
+#define ROWS_GAP 30
 
-// Keypad start position, key sizes and spacing
-#define KEY_X 80 // Centre of key
-#define KEY_Y 96
-#define KEY_W 124 // Width and height
-#define KEY_H 30
-#define KEY_SPACING_X 36 // X and Y gap
-#define KEY_SPACING_Y 20
-#define KEY_TEXTSIZE 1   // Font size multiplier
+// font styling and size
+#define KEYPAD_FONT &FreeSansBold12pt7b    // Key label font 2
+#define CYLINDER_BT_FONT_SIZE 96
+#define BLOCKER_BT_FONT_SIZE 20
 
-// Using two fonts since numbers are nice when bold
-#define LABEL1_FONT &FreeSansOblique12pt7b // Key label font 1
-#define LABEL2_FONT &FreeSansBold12pt7b    // Key label font 2
+// buttons content
 
-// Numeric display box size and location
-#define DISP_X 10
-#define DISP_Y 10
-#define DISP_W 460
-#define DISP_H 50
-#define DISP_TSIZE 3
-#define DISP_TCOLOR TFT_CYAN
-
-// Number length, buffer for storing it and character index
-#define NUM_LEN 24
-
-
-// We have a status line for messages
-#define STATUS_X 120 // Centred on this
-#define STATUS_Y 65
-
-
-//------------------------------------------------------------------------------------------
-
-
+#define CYLINDER_BT_LEFT_TEXT "<"
+#define CYLINDER_BT_RIGHT_TEXT ">"
+#define BLOCKER_BT_MORNING_TEXT "rano"
+#define BLOCKER_BT_NOON_TEXT "południe"
+#define BLOCKER_BT_EVENING_TEXT "wieczór"
 
 #endif //EMBEDDED_PILL_DISPENSER_CONFIG_H

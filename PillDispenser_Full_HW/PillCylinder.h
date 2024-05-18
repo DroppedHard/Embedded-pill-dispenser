@@ -1,0 +1,14 @@
+//
+// Created by szype on 18.05.2024.
+//
+
+#ifndef EMBEDDED_PILL_DISPENSER_PILLCYLINDER_H
+#define EMBEDDED_PILL_DISPENSER_PILLCYLINDER_H
+
+
+namespace PillCylinder {
+
+};
+
+
+#endif //EMBEDDED_PILL_DISPENSER_PILLCYLINDER_H
