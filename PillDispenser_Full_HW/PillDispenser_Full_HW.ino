@@ -6,22 +6,27 @@
 #include "LCDDisplay.h"
 #include "PillCylinder.h"
 
+
 Interfaces::MoveCommunication communicator;
 
-
 void setup() {
-    Serial.begin(115200);
+    // Serial.begin(115200);
+    // pinMode(SM_Enable, OUTPUT);
     pinMode(LED_BUILTIN, OUTPUT);
+    // pinMode(PIN_CYLINDER_Home, INPUT_PULLUP);
+    
     LCDDisplay::initialize();
     LCDDisplay::drawKeypad();
 }
 
 void setup1() {
+    Serial.begin(115200);
     pinMode(SM_Enable, OUTPUT);
-    digitalWrite(SM_Enable, HIGH);
-    pinMode(PIN_CYLINDER_Home, INPUT);
-    pinMode(PIN_BLOCKER_Home, INPUT);
-    PillCylinder::initialize();
+    pinMode(PIN_CYLINDER_Home, INPUT_PULLUP);
+    pinMode(PIN_BLOCKER_Home, INPUT_PULLUP);
+    digitalWrite(SM_Enable, LOW);
+    PillCylinder::prepareCylinder(&communicator);
+    PillCylinder::prepareBlocker(&communicator);
 }
 
 void loop() {
@@ -29,5 +34,5 @@ void loop() {
 }
 
 void loop1() {
-    PillCylinder::cylinderLoop(&communicator);
+    PillCylinder::motorLoop(&communicator);
 }

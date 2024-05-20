@@ -4,8 +4,9 @@
 #include "Config.h"
 
 namespace PillCylinder {
-    void initialize();
-    void cylinderLoop(Interfaces::MoveCommunication *communicator);
+    void prepareCylinder(Interfaces::MoveCommunication *communicator);
+    void prepareBlocker(Interfaces::MoveCommunication *communicator);
+    void motorLoop(Interfaces::MoveCommunication *communicator);
 };
 
 

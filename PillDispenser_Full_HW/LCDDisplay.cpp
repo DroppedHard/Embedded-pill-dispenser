@@ -18,6 +18,7 @@ uint16_t bt_color_tab[BT_NUM] = {CYLINDER_BT_COLOR, CYLINDER_BT_COLOR,
 };
 TFT_eSPI_Button bt_struct_tab[BT_NUM];
 
+BlockerState blockerState = BlockerState::morning;
 
 void initialize() {
     tft.init();
@@ -45,7 +46,6 @@ void guiLoop(Interfaces::MoveCommunication *communicator) {
 
         if (bt_struct_tab[bt_id].justPressed()) {
             bt_struct_tab[bt_id].drawButton(true);
-            communicator->inProgress = true;
             switch (bt_id) {
                 case 0: // cylinder left section
                     orderMovement(communicator, true, -MOTOR_CYLINDER_STEP);
@@ -60,22 +60,22 @@ void guiLoop(Interfaces::MoveCommunication *communicator) {
                     orderMovement(communicator, true, MOTOR_CYLINDER_MOVE);
                     break;
                 case 4: // blocker block button
-
+                    orderMovement(communicator, false, calculateBlockerSteps(BlockerState::block));
                     break;
-                case 5: // blocker move left
-                    orderMovement(communicator, false, -512);
+                case 5: // blocker small move left
+                    orderMovement(communicator, false, MOTOR_BLOCKER_MOVE);
                     break;
-                case 6: // blocker move right
-                    orderMovement(communicator, false, 512);
+                case 6: // blocker small move right
+                    orderMovement(communicator, false, -MOTOR_BLOCKER_MOVE);
                     break;
                 case 7: // blocker morning
-;
+;                   orderMovement(communicator, false, calculateBlockerSteps(BlockerState::morning));
                     break;
                 case 8: // blocker noon
-
+                    orderMovement(communicator, false, calculateBlockerSteps(BlockerState::noon));
                     break;
                 case 9: // blocker evening
-
+                    orderMovement(communicator, false, calculateBlockerSteps(BlockerState::evening));
                     break;
             }
             delay(10); // UI debouncing
@@ -164,9 +164,18 @@ void drawKeypad()
 }
 
 void orderMovement(Interfaces::MoveCommunication *communicator, bool isCylinder, long steps) {
-    if (isCylinder) communicator->cylinderMove = true;
-    else communicator->blockerMove = true;
-    communicator->steps = steps;
+    if (!communicator->inProgress) {
+        communicator->inProgress = true;
+        if (isCylinder) communicator->cylinderMove = true;
+        else communicator->blockerMove = true;
+        communicator->steps = steps;
+    }
+}
+
+long calculateBlockerSteps(BlockerState desiredState) {
+    int stateVect = static_cast<uint8_t>(desiredState) - static_cast<uint8_t>(blockerState);
+    blockerState = desiredState;
+    return MOTOR_BLOCKER_STEP * stateVect;
 }
 
 }

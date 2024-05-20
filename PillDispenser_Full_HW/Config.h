@@ -16,7 +16,7 @@ const int In2_1 = 18;
 const int In2_2 = 19;
 const int In2_3 = 20;
 const int In2_4 = 21;
-const int PIN_BLOCKER_Home = 28;
+const int PIN_BLOCKER_Home = 28; // HIGH - on MORNING
 const int PIN_CYLINDER_Home = 14;
 const int SM_Enable = 7;
 const int GP_Button = 22;
@@ -69,12 +69,23 @@ const int GP_Button = 22;
 
 // CYLINDER DEFINITIONS
 
+#define MOTOR_CYLINDER_SETUP_STEP 100
 #define MOTOR_CYLINDER_STEP 512L
-#define MOTOR_CYLINDER_MOVE 10L
+#define MOTOR_CYLINDER_MOVE 20L
+#define MOTOR_CYLINDER_MAX_SPEED 1000
+#define MOTOR_CYLINDER_BASE_SPEED 450
+#define MOTOR_CYLINDER_ACCELERATION 1000
 
+// BLOCKER DEFINITIONS
+
+#define MOTOR_BLOCKER_SETUP_STEP 100
+#define MOTOR_BLOCKER_STEP 706L
+#define MOTOR_BLOCKER_MOVE 50L
+#define MOTOR_BLOCKER_MAX_SPEED 500
+#define MOTOR_BLOCKER_BASE_SPEED 450
+#define MOTOR_BLOCKER_ACCELERATION 1000
 
 namespace Interfaces {
-
     struct MoveCommunication {
         bool inProgress;
         bool cylinderMove; // false - not for this device
